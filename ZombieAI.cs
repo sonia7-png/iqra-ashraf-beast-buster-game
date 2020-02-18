@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZombieAI : MonoBehaviour {
+public class ZombieAi : MonoBehaviour {
 
     public GameObject human;
     public GameObject theEnemy;
     public GameObject z;
-    public float EnemySpeed = 0.02f;
+    public float EnemySpeed = 0.05f;
     public bool attackTrigger = false;
     public bool isAttacking = false;
 
@@ -16,14 +17,14 @@ public class ZombieAI : MonoBehaviour {
         transform.LookAt(human.transform);
         if (attackTrigger == false)
         {
-            EnemySpeed = 0.02f;
-            theEnemy.GetComponent<Animation>().Play("Zombie Walk");
+            EnemySpeed = 0.05f;
+            theEnemy.GetComponent<Animation>().Play("Walking (1)");
             transform.position = Vector3.MoveTowards(transform.position, human.transform.position, EnemySpeed);
         }
         if (attackTrigger == true && isAttacking == false)
         {
             EnemySpeed = 0;
-            theEnemy.GetComponent<Animation>().Play("Zombie Punching");
+            theEnemy.GetComponent<Animation>().Play("JillAttack");
             StartCoroutine(InflictDamage());
         }
     }
@@ -43,7 +44,7 @@ public class ZombieAI : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         z.SetActive(true);
         human.SetActive(false);
-        z.GetComponent<Animation>().Play("Walking");
+        z.GetComponent<Animation>().Play("walk");
         yield return new WaitForSeconds(5f);
         theEnemy.SetActive(false);
         isAttacking = false;
