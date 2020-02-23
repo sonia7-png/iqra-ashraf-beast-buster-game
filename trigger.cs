@@ -16,6 +16,7 @@ public class trigger : MonoBehaviour {
     public GameObject particlefif;
     public GameObject particlesix;
     public GameObject particlesev;
+    public GameObject Zombies;
     void OnTriggerEnter()
     {
         StartCoroutine(wait());
@@ -35,6 +36,7 @@ public class trigger : MonoBehaviour {
             particlefif.SetActive(true);
             particlesix.SetActive(true);
             particlesev.SetActive(true);
+            Zombies.SetActive(false);
 
         }
     }
