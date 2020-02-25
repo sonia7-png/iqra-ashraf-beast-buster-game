@@ -1,34 +1,34 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZombieAi : MonoBehaviour {
-
-    public GameObject human;
+public class zombieAI : MonoBehaviour {
+    public GameObject thePlayer;
     public GameObject theEnemy;
-    public GameObject z;
     public float EnemySpeed = 0.05f;
     public bool attackTrigger = false;
     public bool isAttacking = false;
-
-    void Update()
-    {
-        transform.LookAt(human.transform);
+  
+    public int hurtGen;
+//Call every frame
+void Update()
+{
+      transform.LookAt(thePlayer.transform);
         if (attackTrigger == false)
         {
             EnemySpeed = 0.05f;
-            theEnemy.GetComponent<Animation>().Play("Walking (1)");
-            transform.position = Vector3.MoveTowards(transform.position, human.transform.position, EnemySpeed);
+            theEnemy.GetComponent<Animation>().Play("walk");
+            transform.position = Vector3.MoveTowards(transform.position, thePlayer.transform.position, EnemySpeed);
         }
-        if (attackTrigger == true && isAttacking == false)
+       if(attackTrigger==true && isAttacking == false)
         {
             EnemySpeed = 0;
-            theEnemy.GetComponent<Animation>().Play("JillAttack");
+            theEnemy.GetComponent<Animation>().Play("Attack");
             StartCoroutine(InflictDamage());
+
         }
-    }
-    void OnTriggerEnter()
+}
+ void OnTriggerEnter()
     {
         attackTrigger = true;
     }
@@ -36,17 +36,17 @@ public class ZombieAi : MonoBehaviour {
     {
         attackTrigger = false;
     }
-    IEnumerator InflictDamage()
+     IEnumerator InflictDamage()
     {
         isAttacking = true;
-        yield return new WaitForSeconds(2f);
-        GlobalHealth.currentHealth -= 5;
-        yield return new WaitForSeconds(0.1f);
-        z.SetActive(true);
-        human.SetActive(false);
-        z.GetComponent<Animation>().Play("walk");
-        yield return new WaitForSeconds(5f);
-        theEnemy.SetActive(false);
+       
+       
+     // theFlash.SetActive(true);
+      yield return new WaitForSeconds(0.1f);
+       // theFlash.SetActive(false);
+      // yield return new WaitForSeconds(1.1f);
+     GlobalHealth.currentHealth -= 5;
+       // yield return new WaitForSeconds(0.9f);
         isAttacking = false;
     }
 }
